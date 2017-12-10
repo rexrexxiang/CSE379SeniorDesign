@@ -1,0 +1,121 @@
+=========== Weibo Data And Detail Information ===========
+1. Purpose:
+    This programing is used to web-scraping the data for a specific account by using it's own weibo id.
+
+2. How To Get Cookie:
+    This program will use the cookie to get access to programmer's weibo account and start the web-scraping process of the target account. In order to do that, we need to get our cookie first.
+    a) First download a chrome browser if you do not have one, then go to https://passport.weibo.cn/signin/login.
+    b) Open the chrome developer tools.
+    c) Click the "newwork" tab and then select the "Preserve log"
+    d) Enter your account name and password and log into your account.
+    e) Find the "m.weibo.cn" item which listed in the developer tools and then find the "Cookie" under "Request Cookie".
+    f) Copy and paste the cookie into the cookie field under weibo class in the program. 
+    
+3. How To get Weibo Account ID:
+    a) Normal case:
+        Typically if a account web address is similary to http://weibo.com/u/5223347681?refer_flag=1001030201_, the account id will be just 5223347681 and shown in the web address
+    b) Other case):
+        If the we address is similary to http://weibo.com/zhuhainongfushiji?refer_flag=1001030201_ then you need more step to get the Account ID
+        b.1) Go to this this web address
+        b.2) On the left hand side and under the Follow/Followers/Weibo and find the info area.
+        b.3) Click the "查看更多" or "view more" button
+        6.4) The web address will become something like http://weibo.com/p/1005052767307765/info?mod=pedit_more and the account id will be just 1005052767307765
+
+    NOTE: Since the program is collect data through the mobile version weibo page, it will ONLY work for the 10 digits account IDs.
+    
+4. Output file:
+    The program will output csv files. One named "user_info.csv" which has all user level info and one named "xxxxxx.csv" (xx should be account id) for each account has all posts information
+    a) user_info.csv
+        Username: User name for target account.
+        Account ID: Account ID for target account.
+        Num of Post:    Total number of posts.
+        Num of followers:   Total number of account followed by target account.
+        Num of fans:    Total number of account who follow the target account.
+        Followers ID:   All account id of account followed by target account.
+        Fans ID:    All account id of account who follow the target account.
+        
+        NOTE: we ONLY collect the number only account id in this case.
+    
+    b) xxxxxxxx.csv
+        Num:    Number id for each post.
+        Post:   Full length of content.
+        Date:   Date of post
+        Like:   Number of like for this post
+        Like_ID:    All account id for people who like the post.
+        Share:  Number of share for this post
+        Share_ID:   all account id for people who share the post.
+        Share_Content:  the content fot people share with the post (Separate by $)
+        Comment:    Number of comment for this post
+        Comment_ID: all account id for people who comment the post.
+        Comment_Content:    the content fot people comment on the post (Separate by $)
+        
+        NOTE: we ONLY collect the number only account id in this case.
+    
+    
+=========== Twitter Data And Detail Information ===========
+1. API:
+    The consumer_key, consumer_secret, access_key and access_secret are the only requirement for the offical API. In this program right now, I am using my own API information. You can change it to yours after you registrated as twitter developer and apply for using API
+    
+2. Output:
+    The program will output csv files. One named "user_info.csv" which has all user level info and one named "xxxxxx.csv" (xx should be account id) for each account has all posts information.
+    a) user_info.csv
+    user_screen_name: The name shown with their tweet, ex: "cmridings"
+        user_name:  The acutal user name, ex: "Catherine Ridings"
+        user_id:    The user_id which provide by Twitter
+        user_description: The description that user put on his/her homepage 
+        user_location:  The location information that user put on his/her homepage 
+        user_verified: Is user a verified account
+        user_create: When the account created
+        total_post: Total number of posts
+        num_video: Total number of video
+        num_photo:  Total number of photo
+        followers:  Total number of followers
+        followers_list: ID for every followers
+        followings: Total number of followerings
+        followings_list:    ID for every followerings
+        list_member:    number of list that is membered
+        list_subscription: number of list that subscripted
+        likes:  number of total likes
+    
+    b) xxxxxxxx.csv
+        num:    Number id for each post.
+        content:    Content of each post (Start with RT means retweet)
+        date:   Date and time of each post(greenwich mean time)
+        type:   Type of each post(Original or Seed(reply))
+        comment_id: Which post reply to.
+        num_image:  Number of image in the post.
+        num_video:  Number of video in the post.
+        num_link:   Number of link in the post.
+        num_mention:    Number of mention in the post.
+        mention_list:   All id that mention in the post.
+        num_hashtag:    Number of hastage in the post.
+        hashtag_list:   The content of hastage.
+        num_like:   Number of like of the post.
+        num_retweet:    Number of retweet of the post.
+        
+        
+=========== WeChat Data And Detail Information ===========
+1.Filename format: (All time is base on the file creation)
+    WeChat orginal data: C_[wechat account id]_[year]_[month]_[day].csv
+    WeChat translated data: CT_[wechat account id]_[year]_[month]_[day].csv
+    Weibo translted data: BT_[weibo account id]_[year]_[month]_[day].csv
+
+2.Output formats
+    Weibo: See weibo readme for details, all column with "-Translated" postfix is the translated version without it.
+
+    WeChat:
+    id - unique id of a post returned by the api
+    title - the title of the post
+    titleTranslated - translated title of the post
+    content - the main body of the post
+    contentTranslated - translated main body of the post
+    numViews - number of views the post has
+    numLikes - number of likes the post has
+    numComments - number of comments the post has
+    numImages - number of images the post contains
+    numVideos - number of videos the post contains
+    postTime - time the post is created in greenwich mean time
+    commentUser - list of usernames of the commenter, seperated by $
+    commentTime - list of time when the comment is posted in greenwich mean time, seperated by $
+    commentText - list of comment, seperated by $
+    commentTextTranslated - list of translated comments, seperated by $
